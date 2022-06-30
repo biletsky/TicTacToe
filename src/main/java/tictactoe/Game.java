@@ -3,10 +3,8 @@ package tictactoe;
 import java.util.Scanner;
 
 public class Game {
-
     Scanner scanner = new Scanner(System.in);
     MiniMax miniMax = new MiniMax();
-    Board board = new Board();
 
     public void run() {
         String chooseOption;
@@ -15,63 +13,73 @@ public class Game {
             chooseOption = scanner.nextLine();
             switch (chooseOption) {
                 case "start easy easy": {
+                    Board board = new Board();
                     board.draw();
                     System.out.println(MakingText.EASY);
-                    easyWithEasy();
+                    easyWithEasy(board);
                     break;
                 }
                 case "start easy user": {
+                    Board board = new Board();
                     board.draw();
                     print(MakingText.EASY);
-                    easyWithUser();
+                    easyWithUser(board);
                     break;
                 }
                 case "start user easy": {
+                    Board board = new Board();
                     board.draw();
                     print(MakingText.EASY);
-                    userWithEasy();
+                    userWithEasy(board);
                     break;
                 }
                 case "start user user": {
+                    Board board = new Board();
                     board.draw();
                     print(MakingText.EASY);
-                    userWithUser();
+                    userWithUser(board);
                     break;
                 }
                 case "start medium user": {
+                    Board board = new Board();
                     board.draw();
                     print(MakingText.MEDIUM);
-                    mediumWithUser();
+                    mediumWithUser(board);
                     break;
                 }
                 case "start user medium": {
+                    Board board = new Board();
                     board.draw();
                     print(MakingText.MEDIUM);
-                    userWithMedium();
+                    userWithMedium(board);
                     break;
                 }
                 case "start medium medium": {
+                    Board board = new Board();
                     board.draw();
                     print(MakingText.MEDIUM);
-                    mediumWitMedium();
+                    mediumWitMedium(board);
                     break;
                 }
                 case "start hard user": {
+                    Board board = new Board();
                     board.draw();
                     print(MakingText.HARD);
-                    hardWsUser();
+                    hardWsUser(board);
                     break;
                 }
                 case "start user hard": {
+                    Board board = new Board();
                     board.draw();
                     print(MakingText.HARD);
-                    userWsHard();
+                    userWsHard(board);
                     break;
                 }
                 case "start hard hard": {
+                    Board board = new Board();
                     board.draw();
                     print(MakingText.HARD);
-                    hardWsHard();
+                    hardWsHard(board);
                     break;
                 }
                 case "exit": {
@@ -86,7 +94,7 @@ public class Game {
         while (!chooseOption.equals("exit"));
     }
 
-    private void userWithMedium() {
+    private void userWithMedium(Board board) {
         while (!board.hasWinner()) {
             board.placeMark();
             if (!board.hasWinner()) {
@@ -96,7 +104,7 @@ public class Game {
         }
     }
 
-    private void mediumWithUser() {
+    private void mediumWithUser(Board board) {
         while (!board.hasWinner()) {
             board.smartRandom();
             board.placeMark();
@@ -106,7 +114,7 @@ public class Game {
         }
     }
 
-    private void mediumWitMedium() {
+    private void mediumWitMedium(Board board) {
         while (!board.hasWinner()) {
             board.smartRandom();
             if (!board.hasWinner()) {
@@ -115,13 +123,13 @@ public class Game {
         }
     }
 
-    private void userWithUser() {
+    private void userWithUser(Board board) {
         while (!board.hasWinner()) {
             board.placeMark();
         }
     }
 
-    private void easyWithEasy() {
+    private void easyWithEasy(Board board) {
         while (!board.hasWinner()) {
             board.chooseRandomCell();
             if (!board.hasWinner()) {
@@ -130,7 +138,7 @@ public class Game {
         }
     }
 
-    private void easyWithUser() {
+    private void easyWithUser(Board board) {
         while (!board.hasWinner()) {
             board.chooseRandomCell();
             board.placeMark();
@@ -140,7 +148,7 @@ public class Game {
         }
     }
 
-    private void userWithEasy() {
+    private void userWithEasy(Board board) {
         while (!board.hasWinner()) {
             board.placeMark();
             if (!board.hasWinner()) {
@@ -150,7 +158,7 @@ public class Game {
         }
     }
 
-    private void hardWsUser() {
+    private void hardWsUser(Board board) {
         while (!board.hasWinner()) {
             miniMax.setMarkToBoard(board, false);
             board.placeMark();
@@ -160,7 +168,7 @@ public class Game {
         }
     }
 
-    private void hardWsHard() {
+    private void hardWsHard(Board board) {
         while (!board.hasWinner()) {
             miniMax.setMarkToBoard(board, false);
             if (!board.hasWinner()) {
@@ -171,7 +179,7 @@ public class Game {
         }
     }
 
-    private void userWsHard() {
+    private void userWsHard(Board board) {
         while (!board.hasWinner()) {
             board.placeMark();
             if (!board.hasWinner()) {

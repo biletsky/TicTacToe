@@ -216,7 +216,7 @@ public class Board {
 
     protected void smartRandom() {
         Mark mark = crossTurn ? X : O;
-        int check = countOfWinnerCombination(opponentMark());
+        int countOfWinnerCombination = countOfWinnerCombination(opponentMark());
         if (checkPotentialWinner(mark).equals(mark)) {
             for (int row = 0; row < BOARD_WIDTH; row++) {
                 for (int col = 0; col < BOARD_WIDTH; col++) {
@@ -240,7 +240,7 @@ public class Board {
                 for (int col = 0; col < BOARD_WIDTH; col++) {
                     if (isTileMarked(row, col)) {
                         setMarkAt(row, col, mark);
-                        if (check > 1) {
+                        if (countOfWinnerCombination > 1) {
                             if (countOfWinnerCombination(opponentMark()) > 1) {
                                 setMarkAt(row, col, BLANK);
                             } else {
