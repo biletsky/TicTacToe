@@ -69,6 +69,8 @@ public class Game {
                     break;
                 }
                 case "start hard hard": {
+                    board.draw();
+                    print(MakingText.HARD);
                     hardWsHard();
                     break;
                 }
@@ -162,6 +164,8 @@ public class Game {
         while (!board.hasWinner()) {
             miniMax.setMarkToBoard(board, false);
             if (!board.hasWinner()) {
+                print(MakingText.HARD);
+                miniMax.setMarkToBoard(board, true);
                 print(MakingText.HARD);
             }
         }

@@ -35,7 +35,7 @@ public class MiniMax extends Board {
             int highestVal = Integer.MIN_VALUE;
             for (int row = 0; row < board.getWidth(); row++) {
                 for (int col = 0; col < board.getWidth(); col++) {
-                    if (!board.isTileMarked(row, col)) {
+                    if (board.isTileMarked(row, col)) {
                         board.setMarkAt(row, col, mark);
                         highestVal = Math.max(highestVal, miniMax(board,
                                 depth - 1, false, userPlayer));
@@ -49,7 +49,7 @@ public class MiniMax extends Board {
             int lowestVal = Integer.MAX_VALUE;
             for (int row = 0; row < board.getWidth(); row++) {
                 for (int col = 0; col < board.getWidth(); col++) {
-                    if (!board.isTileMarked(row, col)) {
+                    if (board.isTileMarked(row, col)) {
                         board.setMarkAt(row, col, opponentMark);
                         lowestVal = Math.min(lowestVal, miniMax(board,
                                 depth - 1, true, userPlayer));
@@ -71,10 +71,9 @@ public class MiniMax extends Board {
         int[] bestMove = new int[]{-1, -1};
         int bestValue = Integer.MIN_VALUE;
         Mark mark = board.isCrossTurn() ? X : O;
-
         for (int row = 0; row < board.getWidth(); row++) {
             for (int col = 0; col < board.getWidth(); col++) {
-                if (!board.isTileMarked(row, col)) {
+                if (board.isTileMarked(row, col)) {
                     board.setMarkAt(row, col, mark);
                     int moveValue = miniMax(board, MAX_DEPTH, false, userPlayer);
                     board.setMarkAt(row, col, BLANK);
@@ -130,7 +129,6 @@ public class MiniMax extends Board {
         }
 
         // Check columns for winner.
-        rowSum = 0;
         for (int col = 0; col < bWidth; col++) {
             for (int row = 0; row < bWidth; row++) {
                 rowSum += board.getMarkAt(row, col).getMark();
@@ -145,7 +143,6 @@ public class MiniMax extends Board {
 
         // Check diagonals for winner.
         // Top-left to bottom-right diagonal.
-        rowSum = 0;
         for (int i = 0; i < bWidth; i++) {
             rowSum += board.getMarkAt(i, i).getMark();
         }

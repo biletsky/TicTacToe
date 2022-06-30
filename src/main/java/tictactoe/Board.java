@@ -9,18 +9,16 @@ import static tictactoe.Mark.*;
 
 public class Board {
     private final Mark[][] board;
-    private Mark winningMark;
     private final int BOARD_WIDTH = 3;
-    private boolean crossTurn, gameOver;
+    private boolean crossTurn;
     private int row;
     private int col;
     Scanner scanner = new Scanner(System.in);
     Random random = new Random();
+
     public Board() {
         board = new Mark[BOARD_WIDTH][BOARD_WIDTH];
         crossTurn = true;
-        gameOver = false;
-        winningMark = BLANK;
         initialiseDesk();
     }
 
@@ -62,8 +60,7 @@ public class Board {
                 sum += mark.getMark();
                 if (sum == 264 || sum == 237) {
                     return true;
-                }
-                else if(checkAvailableCell() < 1) {
+                } else if (checkAvailableCell() < 1) {
                     return true;
                 }
             }
@@ -81,7 +78,7 @@ public class Board {
     }
 
     public boolean isTileMarked(int row, int column) {
-        return board[row][column].isMarked();
+        return !board[row][column].isMarked();
     }
 
     public void setMarkAt(int row, int column, Mark newMark) {
@@ -115,14 +112,6 @@ public class Board {
 
     public int getWidth() {
         return BOARD_WIDTH;
-    }
-
-    public boolean isGameOver() {
-        return gameOver;
-    }
-
-    public Mark getWinningMark() {
-        return winningMark;
     }
 
     protected void chooseRandomCell() {
@@ -174,12 +163,12 @@ public class Board {
         return count;
     }
 
-    private Mark checkPotentialWinner(Mark symbol) {
+    private Mark checkPotentialWinner(Mark mark) {
         int rowSum = 0;
-        if (symbol == X) {
+        if (mark == X) {
             for (Mark[] marks : boardWinnerCombination()) {
-                for (Mark mark : marks) {
-                    rowSum += mark.getMark();
+                for (Mark symbol : marks) {
+                    rowSum += symbol.getMark();
                 }
                 if (rowSum == 208) {
                     return X;
@@ -187,8 +176,8 @@ public class Board {
             }
         } else {
             for (Mark[] marks : boardWinnerCombination()) {
-                for (Mark mark : marks) {
-                    rowSum += mark.getMark();
+                for (Mark symbol : marks) {
+                    rowSum += symbol.getMark();
                 }
                 if (rowSum == 190) {
                     return O;
@@ -199,7 +188,7 @@ public class Board {
         return BLANK;
     }
 
-    private void winnerText(){
+    private void winnerText() {
         int rowSum = 0;
         for (Mark[] marks : boardWinnerCombination()) {
             for (Mark mark : marks) {
@@ -212,7 +201,7 @@ public class Board {
             }
             rowSum = 0;
         }
-        if(checkAvailableCell() < 1){
+        if (checkAvailableCell() < 1) {
             System.out.println("Game over!");
         }
     }
@@ -231,7 +220,7 @@ public class Board {
         if (checkPotentialWinner(mark).equals(mark)) {
             for (int row = 0; row < BOARD_WIDTH; row++) {
                 for (int col = 0; col < BOARD_WIDTH; col++) {
-                    if (!board[row][col].isMarked()) {
+                    if (isTileMarked(row, col)) {
                         setMarkAt(row, col, mark);
                         if (!hasWinner()) {
                             setMarkAt(row, col, BLANK);
@@ -249,7 +238,7 @@ public class Board {
             boolean twoOptionWinner = false;
             for (int row = 0; row < BOARD_WIDTH; row++) {
                 for (int col = 0; col < BOARD_WIDTH; col++) {
-                    if (!board[row][col].isMarked()) {
+                    if (isTileMarked(row, col)) {
                         setMarkAt(row, col, mark);
                         if (check > 1) {
                             if (countOfWinnerCombination(opponentMark()) > 1) {
@@ -280,7 +269,7 @@ public class Board {
 
     protected int checkAvailableCell() {
         int count = 0;
-        for (Mark[] marks : board ) {
+        for (Mark[] marks : board) {
             for (Mark mark : marks) {
                 if (mark.equals(BLANK)) {
                     count++;
